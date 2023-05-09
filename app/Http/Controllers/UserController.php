@@ -12,4 +12,10 @@ class UserController extends Controller
     {
         return Auth::user();
     }
+    public function users()
+    {
+        $users = User::all();
+        return response()->json($users);
+    }
+    
 }
