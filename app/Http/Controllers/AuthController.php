@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Exception;
@@ -12,16 +13,32 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+        $users = User::all();
         try {
-            $credentials = $request->only('email', 'password');
-            return $credentials;
-            // if (Auth::attempt($credentials)) {
-            //     $user = Auth::user();
-            //     $token = $user->createToken('authToken')->accessToken;
-            //     return response()->json(['_id' => $user->id, "isAdmin" => $user->isAdmin, "username" => $user->name, "token" => $token]);
-            // } else {
-            //     return response()->json(['error' => 'Unauthorized'], 401);
-            // }
+            $credentials = ['email' => $request->email, 'password' => $request->password];
+            foreach ($users as $user) {
+                $email = $user->email;
+                $password = $user->password;
+
+                // Perform your desired checks on the email and password
+                //TODO: For example, you can check if the email is valid and the password meets certain criteria
+
+                if ($email === $credentials['email'] && $password === $credentials['password']) {
+                    // Email and password are correct
+
+                    // $token = $user->createToken('app')->accessToken;
+                    return response()->json([
+                        'user'=>$user,
+                        '_id' => $user->id,
+                        'role' => $user->role,
+                        'username' => $user->nom,
+                        // 'token' => $token,
+                        'profile_image' =>$user->pdp
+                    ]);
+                } else {
+                    return response()->json(['error' => 'Incorrect Email or Password!'], 401);
+                }
+            }
         } catch (Exception $ex) {
             return response([
                 'message' => $ex->getMessage()
@@ -29,3 +46,19 @@ class AuthController extends Controller
         }
     }
 }
+
+    // return response()->json($users);
+    // if (Auth()->attempt($credentials)) {
+    //     $user = Auth::user();
+    //     $token = $user->createToken('app')->accessToken;
+
+    //     return response()->json([
+    //         '_id' => $user->id,
+    //         'role' => $user->role,
+    //         'username' => $user->nom,
+    //         'token' => $token,
+    //         // 'profile_image' =>$profilePicture
+    //     ]);
+    // } else {
+    //     return response()->json(['error' => 'Incorrect Email or Password!'], 401);
+    // }
