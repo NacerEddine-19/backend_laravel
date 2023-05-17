@@ -1,10 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\homeController;
-use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\FriendshipController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,25 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-// Route::middleware(['auth', 'roleRedirect'])->group(function () {
-    
+// --- USERCONTROLLER ROUTES 
+Route::post('login', [AuthController::class, 'login']);
 
-//     // Accessible to users with the 'admin' and 'user' roles
-//     Route::group(['middleware' => 'role:admin,user'], function () {
-//         Route::get('/home', function () {
-//             return Redirect::to('http://localhost:3000/home');
-//         });
-//     });
 
-//     // Accessible only to users with the 'superAdmin' role
-//     Route::group(['middleware' => 'role:superAdmin'], function () {
-//         Route::get('/adminDash', function () {
-//             return Redirect::to('http://localhost:3000/adminDash');
-//         });
-//     });
+// --- FRIENDSHIPCONTROLLER ROUTES
 
-//     // Add more routes as needed based on your application's requirements
-// });
+Route::prefix('friends')->group(function () {
+    Route::post('/', [FriendshipController::class, 'getFriends']);
+    Route::post('/{id}', [FriendshipController::class, 'getFriendById']);
+    Route::post('/addFriendship', [FriendshipController::class, 'addFriendship']);
+    Route::post('/removeFriendship', [FriendshipController::class, 'removeFriendship']);
+});

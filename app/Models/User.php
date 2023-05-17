@@ -24,10 +24,9 @@ class User extends Authenticatable
         'prenom',
         'email',
         'group',
-        'favorite',
-        'is_stagier',
-        'is_admin',
-        'is_super_admin',
+        'favorites',
+        'role',
+        'pdp'
     ];
 
     /**
@@ -37,7 +36,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**

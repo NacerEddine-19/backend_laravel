@@ -3,6 +3,8 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+Route::prefix('api')->group(base_path('routes/api.php'));
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,4 +19,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::post('login', 'AuthController@login');
