@@ -31,7 +31,6 @@ class FriendshipController extends Controller
     public function getFriends(Request $request)
     {
         $user_id = $request->user_id;
-        $friend_id = $request->friend_id;
         $friends_id = Friendship::where('user_id', $user_id)->pluck('friend_id')->toArray();
         $friends = User::whereIn('id', $friends_id)->get();
         return ($friends);
