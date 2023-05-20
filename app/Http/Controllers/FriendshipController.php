@@ -28,7 +28,7 @@ class FriendshipController extends Controller
         return response()->json($friendship);
     }
 
-    public function getFriends(Request $request)
+    public function getFriendships(Request $request)
     {
         $user_id = $request->user_id;
         $friends_id = Friendship::where('user_id', $user_id)->pluck('friend_id')->toArray();
@@ -36,7 +36,7 @@ class FriendshipController extends Controller
         return ($friends);
     }
 
-    public function getFriendById(Request $request)
+    public function getFriendshipById(Request $request)
     {
         $user_id = $request->user_id;
         $friend_id = $request->friend_id;
