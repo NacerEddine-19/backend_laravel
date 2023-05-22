@@ -38,3 +38,12 @@ Route::prefix('posts')->group(function () {
     Route::delete('/{id}', [PostController::class, 'DeletePost']);
     Route::get('/user/{id}', [PostController::class, 'GetAllPostByUser']);
 });
+
+// --- COMMENTSCONTROLLER ROUTES
+Route::prefix('comments')->group(function () {
+    Route::get('/{id}', [PostController::class, 'GetAllComments']);
+    Route::post('/{id}', [PostController::class, 'AddComment']);
+    // Route::put('/{id}', [PostController::class, 'updateComment']);
+
+    Route::delete('/{id}', [PostController::class, 'DeleteComment']);
+});

@@ -16,4 +16,5 @@ class Friendship extends Model
         'user_id',
         'friend_id'
     ];
+    
 }

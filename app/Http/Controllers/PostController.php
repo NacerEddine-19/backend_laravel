@@ -16,6 +16,7 @@ class PostController extends Controller
         $post->save();
         return response()->json($post);
     }
+
     public function DeletePost(Request $req)
     {
         $post = Post::find($req->id);
@@ -37,11 +38,15 @@ class PostController extends Controller
     public function GetPost(Request $req)
     {
         $post = Post::find($req->id);
-        return response()->json($post);
+        $comments = $post->comments;
+        return response()->json([
+            $post,
+            $comments
+        ]);
     }
     public function GetAllPost()
     {
-        $post = Post::all();
+        $post = Post::orderBy('created_at', 'desc')->get();
         return response()->json($post);
     }
     public function GetAllPostByUser(Request $req)
@@ -49,5 +54,4 @@ class PostController extends Controller
         $post = Post::where('user_id', $req->id)->get();
         return response()->json($post);
     }
-
 }
