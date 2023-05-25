@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 
 class CommentsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     public function addComment(Request $request)
     {
         $comment = new Comment;
@@ -18,8 +14,10 @@ class CommentsController extends Controller
         $comment->post_id = $request->post_id;
         $comment->content = $request->content;
         $comment->save();
+        $user = $comment->user;
         return response()->json([
             $comment,
+            $user,
             'message' => 'Comment added successfully'
         ]);
     }
@@ -46,6 +44,15 @@ class CommentsController extends Controller
     public function getAllComments()
     {
         $comments = Comment::all();
+        return response()->json([
+            $comments,
+            'message' => 'All comments'
+        ]);
+    }
+    //getCommentsByPost
+    public function getCommentsByPost($id)
+    {
+        $comments = Comment::where('post_id', $id)->get();
         return response()->json([
             $comments,
             'message' => 'All comments'

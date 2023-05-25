@@ -38,17 +38,19 @@ class PostController extends Controller
     public function GetPost(Request $req)
     {
         $post = Post::find($req->id);
-        $comments = $post->comments;
+        $comments = $post->comments()->with('user')->get();
+        $user = $post->user;
         return response()->json([
             $post,
-            $comments
+            $comments,
+            $user
         ]);
     }
-    public function GetAllPost()
-    {
-        $post = Post::orderBy('created_at', 'desc')->get();
-        return response()->json($post);
-    }
+    public function GetAllPosts()
+{
+    $posts = Post::with('comments', 'user')->orderBy('created_at', 'desc')->get();
+    return response()->json($posts);
+}
     public function GetAllPostByUser(Request $req)
     {
         $post = Post::where('user_id', $req->id)->get();

@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +33,7 @@ Route::prefix('friends')->group(function () {
 
 // --- POSTSCONTROLLER ROUTES
 Route::prefix('posts')->group(function () {
-    Route::get('/', [PostController::class, 'GetAllPost']);
+    Route::get('/', [PostController::class, 'GetAllPosts']);
     Route::get('/{id}', [PostController::class, 'GetPost']);
     Route::post('/', [PostController::class, 'AddPost']);
     // Route::put('/{id}', [PostController::class, 'updatePost']);
@@ -41,9 +43,13 @@ Route::prefix('posts')->group(function () {
 
 // --- COMMENTSCONTROLLER ROUTES
 Route::prefix('comments')->group(function () {
-    Route::get('/{id}', [PostController::class, 'GetAllComments']);
-    Route::post('/{id}', [PostController::class, 'AddComment']);
-    // Route::put('/{id}', [PostController::class, 'updateComment']);
+    Route::post('/add', [CommentsController::class, 'addComment']);
+Route::delete('/delete/{id}', [CommentsController::class, 'deleteComment']);
+// Route::put('/edit/{id}', [CommentsController::class, 'editComment']);
+Route::get('/all', [CommentsController::class, 'getAllComments']);
+});
 
-    Route::delete('/{id}', [PostController::class, 'DeleteComment']);
+// --- USERCONTROLLER ROUTES
+Route::prefix('users')->group(function () {
+    Route::get('/', [UserController::class, 'users']);
 });

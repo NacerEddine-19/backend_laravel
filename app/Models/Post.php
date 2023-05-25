@@ -22,9 +22,9 @@ class Post extends Model
         'created_at',
         'likes'
     ];
-    public function user(): BelongsTo
+    public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id_user');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function comments(): HasMany
     {
