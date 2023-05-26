@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -40,6 +41,7 @@ class PostController extends Controller
         $post = Post::find($req->id);
         $comments = $post->comments()->with('user')->get();
         $user = $post->user;
+        Log::info('Post add: Post ID ' . $post->id_post);
         return response()->json([
             $post,
             $comments,

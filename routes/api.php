@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,12 +45,19 @@ Route::prefix('posts')->group(function () {
 // --- COMMENTSCONTROLLER ROUTES
 Route::prefix('comments')->group(function () {
     Route::post('/add', [CommentsController::class, 'addComment']);
-Route::delete('/delete/{id}', [CommentsController::class, 'deleteComment']);
-// Route::put('/edit/{id}', [CommentsController::class, 'editComment']);
-Route::get('/all', [CommentsController::class, 'getAllComments']);
+    Route::delete('/delete/{id}', [CommentsController::class, 'deleteComment']);
+    // Route::put('/edit/{id}', [CommentsController::class, 'editComment']);
+    Route::get('/all', [CommentsController::class, 'getAllComments']);
 });
 
 // --- USERCONTROLLER ROUTES
 Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'users']);
+});
+
+// --- REPORTS ROUTES
+Route::prefix('reports')->group(function () {
+    Route::get('/{id}', [ReportController::class, 'index']);
+    Route::post('/add', [ReportController::class, 'store']);
+    Route::delete('/{id}', [ReportController::class, 'deleteReport']);
 });

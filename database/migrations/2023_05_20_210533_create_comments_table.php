@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('post_id');
-            $table->unsignedBigInteger('user_id');
-            $table->text('content');
-            $table->timestamps();
+        if (!Schema::hasTable('reported')) {
+            Schema::create('comments', function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('post_id');
+                $table->unsignedBigInteger('user_id');
+                $table->text('content');
+                $table->timestamps();
 
-            $table->foreign('post_id')->references('id_post')->on('posts')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
+                $table->foreign('post_id')->references('id_post')->on('posts')->onDelete('cascade');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            });
+        }
     }
 
     /**
