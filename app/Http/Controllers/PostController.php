@@ -49,13 +49,27 @@ class PostController extends Controller
         ]);
     }
     public function GetAllPosts()
-{
-    $posts = Post::with('comments', 'user')->orderBy('created_at', 'desc')->get();
-    return response()->json($posts);
-}
+    {
+        $posts = Post::with('comments', 'user', 'likingUsers')->orderBy('created_at', 'desc')->get();
+        return response()->json($posts);
+    }
     public function GetAllPostByUser(Request $req)
     {
         $post = Post::where('user_id', $req->id)->get();
+        return response()->json($post);
+    }
+    public function LikePost(Request $req)
+    {
+        $post = Post::find($req->id);
+        $post->likes = $post->likes + 1;
+        $post->save();
+        return response()->json($post);
+    }
+    public function UnlikePost(Request $req)
+    {
+        $post = Post::find($req->id);
+        $post->likes = $post->likes - 1;
+        $post->save();
         return response()->json($post);
     }
 }

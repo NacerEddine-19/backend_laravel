@@ -32,4 +32,8 @@ class Post extends Model
     {
         return $this->morphMany(Report::class, 'reportable');
     }
+    public function likingUsers()
+    {
+        return $this->belongsToMany(User::class, 'likes', 'post_id', 'user_id');
+    }
 }

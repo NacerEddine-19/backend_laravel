@@ -40,6 +40,10 @@ Route::prefix('posts')->group(function () {
     // Route::put('/{id}', [PostController::class, 'updatePost']);
     Route::delete('/{id}', [PostController::class, 'DeletePost']);
     Route::get('/user/{id}', [PostController::class, 'GetAllPostByUser']);
+    Route::post('/{id}/like', [PostController::class, 'LikePost']);
+    Route::post('/{id}/unlike', [PostController::class, 'UnlikePost']);
+
+
 });
 
 // --- COMMENTSCONTROLLER ROUTES

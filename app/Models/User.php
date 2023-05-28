@@ -47,7 +47,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function reports()
-{
-    return $this->morphMany(Report::class, 'reportable');
-}
+    {
+        return $this->morphMany(Report::class, 'reportable');
+    }
+    public function likes()
+    {
+        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id');
+    }
 }
