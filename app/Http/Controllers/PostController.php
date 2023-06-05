@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -48,10 +49,22 @@ class PostController extends Controller
             $user
         ]);
     }
-    public function GetAllPosts()
+    public function GetAllPosts(Request $request)
     {
-        $posts = Post::with('comments', 'user', 'likingUsers')->orderBy('created_at', 'desc')->get();
-        return response()->json($posts);
+        $total = Post::all()->count();
+
+        $limit = $request->input('limit', 10);
+        $offset = $request->input('offset', 0);
+
+        $posts = Post::with('comments', 'user', 'likingUsers')
+            ->orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->offset($offset)
+            ->get();
+        return response()->json([
+            'posts' => $posts,
+            'total' => $total
+        ]);
     }
     public function GetAllPostByUser(Request $req)
     {
@@ -71,5 +84,16 @@ class PostController extends Controller
         $post->likes = $post->likes - 1;
         $post->save();
         return response()->json($post);
+    }
+    public function GetPostsByGroup($group_id)
+    {
+        $posts = Post::whereHas('user', function ($query) use ($group_id) {
+            $query->where('group', $group_id);
+        })
+            ->with('comments', 'user', 'likingUsers')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($posts);
     }
 }

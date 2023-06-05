@@ -10,13 +10,12 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-
         try {
             $user = User::where('email', $request->email)->first();
             if (!$user) {
                 return response()->json('user not found');
             }
-            if ($request->password == $user->password) {
+            if (password_verify($request->password, $user->password)) {
                 return response()->json([
                     $user
                 ]);
