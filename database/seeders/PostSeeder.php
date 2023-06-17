@@ -18,7 +18,7 @@ class PostSeeder extends Seeder
 
         for ($i = 0; $i < 40; $i++) {
             Post::create([
-                'file' => $faker->numberBetween(10, 104) . '.jpeg',
+                'file' => $faker->imageUrl(),
                 'post_desc' => $faker->sentence(),
                 'user_id' => $faker->numberBetween(1, 30),
                 'is_reported' => $faker->boolean(),

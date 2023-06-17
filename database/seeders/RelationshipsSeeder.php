@@ -16,10 +16,10 @@ class RelationshipsSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             Friendship::create([
-                'user_id' => 2,
-                'friend_id' => $faker->numberBetween(1, 35),
+                'user_id' => $faker->numberBetween(1, 42),
+                'friend_id' => $faker->numberBetween(1, 42),
             ]);
         }
     }

@@ -42,7 +42,6 @@ class PostController extends Controller
         $post = Post::find($req->id);
         $comments = $post->comments()->with('user')->get();
         $user = $post->user;
-        Log::info('Post add: Post ID ' . $post->id_post);
         return response()->json([
             $post,
             $comments,
@@ -53,7 +52,7 @@ class PostController extends Controller
     {
         $total = Post::all()->count();
 
-        $limit = $request->input('limit', 10);
+        $limit = $request->input('limit', $total);
         $offset = $request->input('offset', 0);
 
         $posts = Post::with('comments', 'user', 'likingUsers')
@@ -65,11 +64,18 @@ class PostController extends Controller
             'posts' => $posts,
             'total' => $total
         ]);
+        // $posts = Post::paginate(10);
+        // return view('test', compact('posts'));
     }
     public function GetAllPostByUser(Request $req)
     {
-        $post = Post::where('user_id', $req->id)->get();
-        return response()->json($post);
+        $posts = Post::where('user_id', $req->id)->with('comments', 'user', 'likingUsers')->get();
+        $total = $posts->count();
+
+        return response()->json([
+            'posts' => $posts,
+            'total' => $total
+        ]);
     }
     public function LikePost(Request $req)
     {
@@ -94,6 +100,11 @@ class PostController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return response()->json($posts);
+        $total = $posts->count();
+
+        return response()->json([
+            'posts' => $posts,
+            'total' => $total
+        ]);
     }
 }

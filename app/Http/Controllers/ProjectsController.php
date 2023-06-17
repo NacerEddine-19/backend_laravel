@@ -15,23 +15,35 @@ class ProjectsController extends Controller
 
     public function store(Request $request)
     {
-        $project = Project::create([
-            'name' => $request->input('name'),
-            'file' => $request->file('file') ? $request->file('file')->store('projects', 'public') : null,
+        $request->validate([
+            'name' => 'required',
+            'file' => 'required',
         ]);
 
-        $project->users()->sync($request->input('team'));
-        $project->languages()->sync($request->input('languages'));
+        $project = Project::create([
+            'name' => $request->name,
+            'file' => $request->file('file')->store('public/projects'),
+        ]);
 
-        return response()->json($project);
+        // Attach users
+        if ($request->has('users')) {
+            $project->users()->attach($request->users);
+        }
+
+        // Attach languages
+        if ($request->has('languages')) {
+            $project->languages()->attach($request->languages);
+        }
+
+        return response()->json(['success', 'Project created successfully.']);
     }
 
     public function download(Project $project)
     {
         if ($project->file) {
-            return response()->download(public_path('storage/' . $project->file));
+            return response()->download(public_path('public/projects/' . $project->file));
         }
-        
+
         return response()->json(['error' => 'No file available for download'], 404);
     }
 

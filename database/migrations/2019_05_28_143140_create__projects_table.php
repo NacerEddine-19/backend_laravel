@@ -18,17 +18,17 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('project_user', function (Blueprint $table) {
-            $table->foreignId('project_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->primary(['project_id', 'user_id']);
-        });
+        // Schema::create('project_user', function (Blueprint $table) {
+        //     $table->foreignId('project_id')->constrained()->onDelete('cascade');
+        //     $table->foreignId('user_id')->constrained()->onDelete('cascade');
+        //     $table->primary(['project_id', 'user_id']);
+        // });
 
-        Schema::create('language_project', function (Blueprint $table) {
-            $table->foreignId('language_id')->constrained()->onDelete('cascade');
-            $table->foreignId('project_id')->constrained()->onDelete('cascade');
-            $table->primary(['language_id', 'project_id']);
-        });
+        // Schema::create('language_project', function (Blueprint $table) {
+        //     $table->foreignId('language_id')->constrained()->onDelete('cascade');
+        //     $table->foreignId('project_id')->constrained()->onDelete('cascade');
+        //     $table->primary(['language_id', 'project_id']);
+        // });
     }
 
     /**
@@ -36,8 +36,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('language_project');
-        Schema::dropIfExists('project_user');
+        // Schema::dropIfExists('language_project');
+        // Schema::dropIfExists('project_user');
         Schema::dropIfExists('projects');
     }
 };

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,5 @@ Route::prefix('api')->group(base_path('routes/api.php'));
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// Route::get('/posts', [PostController::class, 'GetAllPosts']);

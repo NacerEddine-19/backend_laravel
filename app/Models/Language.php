@@ -11,11 +11,10 @@ class Language extends Model
     protected $table = 'languages';
     protected $primaryKey = 'id';
     protected $fillable = ['name'];
-    public $timestamps = true;
-    // relationship with Project model
+    public $timestamps = false;
     public function projects()
     {
-        return $this->hasMany(Project::class, 'language_id', 'id');
+        return $this->belongsToMany(Project::class);
     }
     
 }
