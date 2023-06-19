@@ -77,3 +77,9 @@ Route::prefix('projects')->group(function () {
     Route::patch('/{project_id}', [ProjectsController::class, 'update']);
     Route::delete('/{project_id}', [ProjectsController::class, 'destroy']);
 });
+
+
+// --- LANGUAGES ROUTES
+Route::prefix('languages')->group(function () {
+    Route::get('/', [LanguagesController::class, 'index']);
+});

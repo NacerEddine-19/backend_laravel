@@ -16,11 +16,11 @@ class PostSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 40; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             Post::create([
                 'file' => $faker->imageUrl(),
                 'post_desc' => $faker->sentence(),
-                'user_id' => $faker->numberBetween(1, 30),
+                'user_id' => 41,
                 'is_reported' => $faker->boolean(),
                 'created_at' => $faker->dateTimeThisMonth(),
                 'likes' => $faker->numberBetween(0, 30)

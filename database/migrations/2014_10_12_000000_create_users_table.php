@@ -22,6 +22,9 @@ return new class extends Migration
                 $table->string('role');
                 $table->integer('favorites');
                 $table->string('pdp');
+                $table->string('bio');
+                $table->string('school');
+                $table->string('city');
                 $table->rememberToken();
                 $table->timestamps();
             });

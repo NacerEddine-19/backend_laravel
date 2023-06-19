@@ -26,7 +26,10 @@ class User extends Authenticatable
         'group',
         'favorites',
         'role',
-        'pdp'
+        'pdp',
+        'bio',
+        'city',
+        'school'
     ];
 
     /**
@@ -54,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id');
     }
+    public function friendships()
+    {
+        return $this->hasMany(Friendship::class, 'user_id', 'id');
+    }
+
 }

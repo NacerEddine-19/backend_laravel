@@ -11,7 +11,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
-            $user = User::where('email', $request->email)->first();
+            $user = User::with('friendships')->where('email', $request->email)->first();
             if (!$user) {
                 return response()->json('user not found');
             }
