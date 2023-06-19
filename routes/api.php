@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\FriendshipController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ReportController;
@@ -21,7 +22,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 // --- USERCONTROLLER ROUTES 
-Route::post('login', [AuthController::class, 'login']);
+Route::prefix('login')->group(function () {
+    Route::post('/', [AuthController::class, 'login']);
+    Route::put('/{id}', [AuthController::class, 'changePass']);
+});
 
 
 // --- FRIENDSHIPCONTROLLER ROUTES
@@ -82,4 +86,10 @@ Route::prefix('projects')->group(function () {
 // --- LANGUAGES ROUTES
 Route::prefix('languages')->group(function () {
     Route::get('/', [LanguagesController::class, 'index']);
+});
+
+
+// --- Group ROUTES
+Route::prefix('groups')->group(function () {
+    Route::get('/{id}', [GroupController::class, 'GetGroupById']);
 });

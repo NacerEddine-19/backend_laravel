@@ -61,5 +61,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Friendship::class, 'user_id', 'id');
     }
-
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
 }
