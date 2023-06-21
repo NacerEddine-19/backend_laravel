@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ReportController;
@@ -77,7 +78,7 @@ Route::prefix('reports')->group(function () {
 Route::prefix('projects')->group(function () {
     Route::get('/', [ProjectsController::class, 'index']);
     Route::get('/{project_id}', [ProjectsController::class, 'show']);
-    Route::post('/', [ProjectsController::class, 'create']);
+    Route::post('/', [ProjectsController::class, 'store']);
     Route::patch('/{project_id}', [ProjectsController::class, 'update']);
     Route::delete('/{project_id}', [ProjectsController::class, 'destroy']);
 });
@@ -85,7 +86,7 @@ Route::prefix('projects')->group(function () {
 
 // --- LANGUAGES ROUTES
 Route::prefix('languages')->group(function () {
-    Route::get('/', [LanguagesController::class, 'index']);
+    Route::get('/', [LanguageController::class, 'index']);
 });
 
 
