@@ -17,16 +17,17 @@ class UserSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 40; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             User::create([
                 'nom' => $faker->lastName,
                 'prenom' => $faker->firstName,
                 'email' => $faker->unique()->safeEmail,
                 'group' => $faker->numberBetween(1, 6),
                 'favorites' => $faker->numberBetween(1, 15),
-                'role' => $faker->randomElement(['admin', 'user']),
+                'role' => $faker->randomElement(['admin', 'stagier']),
                 'pdp' => $faker->imageUrl(),
-                'password' => bcrypt('123') // Change this to generate secure passwords
+                'password' => bcrypt('123'),
+                'created_at' => $faker->dateTimeBetween('-1 years','now'),
             ]);
         }
     }

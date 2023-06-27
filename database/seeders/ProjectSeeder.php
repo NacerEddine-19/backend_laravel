@@ -18,18 +18,19 @@ class ProjectSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $project = Project::create([
                 'name' => $faker->sentence(3),
                 'file' => 'file' . $i . '.txt',
+                'created_at' => $faker->dateTimeBetween('-1 years','now'),
             ]);
 
             // Attach random users to the project
-            $users = User::inRandomOrder()->limit(rand(3, 5))->get();
+            $users = User::inRandomOrder()->limit(rand(3, 6))->get();
             $project->users()->attach($users);
 
             // Attach random languages to the project
-            $languages = Language::inRandomOrder()->limit(rand(3, 5))->get();
+            $languages = Language::inRandomOrder()->limit(rand(3, 6))->get();
             $project->languages()->attach($languages);
         }
     }

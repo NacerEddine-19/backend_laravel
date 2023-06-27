@@ -16,13 +16,13 @@ class PostSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             Post::create([
                 'file' => $faker->imageUrl(),
                 'post_desc' => $faker->sentence(),
                 'user_id' => 41,
                 'is_reported' => $faker->boolean(),
-                'created_at' => $faker->dateTimeThisMonth(),
+                'created_at' => $faker->dateTimeBetween('-1 years','now'),
                 'likes' => $faker->numberBetween(0, 30)
             ]);
         }

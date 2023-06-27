@@ -69,7 +69,7 @@ Route::prefix('users')->group(function () {
 
 // --- REPORTS ROUTES
 Route::prefix('reports')->group(function () {
-    Route::get('/{id}', [ReportController::class, 'index']);
+    Route::get('/', [ReportController::class, 'index']);
     Route::post('/add', [ReportController::class, 'store']);
     Route::delete('/{id}', [ReportController::class, 'deleteReport']);
 });
