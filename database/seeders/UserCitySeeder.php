@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
@@ -18,6 +17,7 @@ class UserCitySeeder extends Seeder
         $users = User::all();
         foreach ($users as $user) {
             $user->city = $faker->city();
+            $user->save();
         }
     }
 }
