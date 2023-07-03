@@ -26,8 +26,49 @@ class UserController extends Controller
             if ($user) {
                 $user->delete();
                 return response()->json(['success', 'User with id : ' . $id . ' was deleted Successfully']);
-            }else {
+            } else {
                 return response()->json(['error', 'User with id : ' . $id . ' was not Found']);
+            }
+        } catch (\Throwable $th) {
+            return response()->json($th);
+        }
+    }
+
+    public function banUser(int $id)
+    {
+        try {
+            $user = User::find($id);
+
+            if ($user) {
+                $user->is_banned = true;
+                $user->save();
+
+                return response()->json([
+                    'success',
+                    'User with id: ' . $id . ' has been banned successfully',
+                    $user
+                ]);
+            } else {
+                return response()->json([
+                    'error',
+                    'User with id: ' . $id . ' was not found'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json($th);
+        }
+    }
+    public function unbanUser(int $id)
+    {
+        try {
+            $user = User::find($id);
+
+            if ($user) {
+                $user->is_banned = false;
+                $user->save();
+                return response()->json(['success', 'User with ID: ' . $id . ' was unbanned successfully']);
+            } else {
+                return response()->json(['error', 'User with ID: ' . $id . ' was not found']);
             }
         } catch (\Throwable $th) {
             return response()->json($th);

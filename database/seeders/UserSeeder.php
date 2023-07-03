@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
                 'role' => $faker->randomElement(['admin', 'stagier']),
                 'pdp' => $faker->imageUrl(),
                 'password' => bcrypt('123'),
-                'created_at' => $faker->dateTimeBetween('-1 years','now'),
+                'created_at' => $faker->dateTimeBetween('now','+1 years'),
             ]);
         }
     }

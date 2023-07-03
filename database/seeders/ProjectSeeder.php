@@ -18,11 +18,11 @@ class ProjectSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $project = Project::create([
                 'name' => $faker->sentence(3),
                 'file' => 'file' . $i . '.txt',
-                'created_at' => $faker->dateTimeBetween('-1 years','now'),
+                'created_at' => $faker->dateTimeBetween('now','+1 years'),
             ]);
 
             // Attach random users to the project

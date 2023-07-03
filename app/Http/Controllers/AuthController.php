@@ -47,7 +47,7 @@ class AuthController extends Controller
                 return response()->json('Wrong password');
             }
         } catch (\Throwable $th) {
-            return response()->json('An error occurred');
+            return response()->json(['An error occurred',$th]);
         }
     }
 }

@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 // --- USERCONTROLLER ROUTES 
 Route::prefix('login')->group(function () {
     Route::post('/', [AuthController::class, 'login']);
-    Route::put('/{id}', [AuthController::class, 'changePass']);
+    Route::put('/pass/{id}', [AuthController::class, 'changePass']);
 });
 
 
@@ -65,6 +65,8 @@ Route::prefix('users')->group(function () {
     Route::get('/{id}', [UserController::class, 'getUser']);
     Route::patch('/{id}', [UserController::class, 'updateUser']);
     Route::delete('/{id}', [UserController::class, 'deleteUser']);
+    Route::patch('/{id}/ban', [UserController::class, 'banUser']);
+    Route::patch('/{id}/unban', [UserController::class, 'unbanUser']);
 });
 
 // --- REPORTS ROUTES

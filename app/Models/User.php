@@ -49,17 +49,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function posts()
+    {
+        return $this->hasMany(Post::class)->onDelete('cascade');
+    }
     public function reports()
     {
-        return $this->morphMany(Report::class, 'reportable');
+        return $this->morphMany(Report::class, 'reportable')->onDelete('cascade');
     }
     public function likes()
     {
-        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id');
+        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id')->onDelete('cascade');
     }
     public function friendships()
     {
-        return $this->hasMany(Friendship::class, 'user_id', 'id');
+        return $this->hasMany(Friendship::class, 'user_id', 'id')->onDelete('cascade');
     }
     public function group()
     {
