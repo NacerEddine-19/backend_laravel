@@ -64,8 +64,6 @@ class PostController extends Controller
             'posts' => $posts,
             'total' => $total
         ]);
-        // $posts = Post::paginate(10);
-        // return view('test', compact('posts'));
     }
     public function GetAllPostByUser(Request $req)
     {

@@ -9,12 +9,20 @@ use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $total = Project::all()->count();
+        $limit = $request->input('limit', $total);
+        $offset = $request->input('offset', 0);
         $projects = Project::with(['users', 'languages'])
             ->orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->offset($offset)
             ->get();
-        return response()->json($projects);
+        return response()->json([
+            'projects' => $projects,
+            'total' => $total
+        ]);
     }
 
     public function store(Request $request)
