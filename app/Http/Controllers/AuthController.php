@@ -10,22 +10,16 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        try {
-            $user = User::with('friendships')->where('email', $request->email)->first();
-            if (!$user) {
-                return response()->json('user not found');
-            }
-            if (password_verify($request->password, $user->password)) {
-                return response()->json([
-                    $user
-                ]);
-            }else {
-                throw new \Exception("Password is incorrect");
-            }
-        } catch (Exception $ex) {
-            return response([
-                'message' => $ex->getMessage()
-            ], 400);
+        $user = User::with('friendships')->where('email', $request->email)->first();
+        if (!$user) {
+            throw new \Exception('user not found');
+        }
+        if (password_verify($request->password, $user->password)) {
+            return response()->json([
+                $user
+            ]);
+        } else {
+            throw new \Exception("Password is incorrect");
         }
     }
     public function changePass($id, Request $req)
@@ -47,7 +41,7 @@ class AuthController extends Controller
                 return response()->json('Wrong password');
             }
         } catch (\Throwable $th) {
-            return response()->json(['An error occurred',$th]);
+            return response()->json(['An error occurred', $th]);
         }
     }
 }

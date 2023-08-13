@@ -17,6 +17,23 @@ class UserController extends Controller
         $users = User::all();
         return response()->json($users);
     }
+    //updateUser
+    public function updateUser(Request $request, int $id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $user->update($request->all());
+            $user->save();
+            return response()->json([
+                'status' => "201",
+                'message' => "updated successfully",
+                'data' => $user
+            ]);
+        } catch (\Exception $e) {
+            throw new \Exception("Error in updating the data");
+        }
+    }
+
     //delete user by id
     public function deleteUser(int $id)
     {

@@ -29,7 +29,15 @@ class User extends Authenticatable
         'pdp',
         'bio',
         'city',
-        'school'
+        'is_banned',
+        'first_time',
+        'school',
+        'phone',
+        'site',
+        'github',
+        'instagram',
+        'x',
+        'facebook'
     ];
 
     /**
@@ -63,7 +71,7 @@ class User extends Authenticatable
     }
     public function friendships()
     {
-        return $this->hasMany(Friendship::class, 'user_id', 'id')->onDelete('cascade');
+        return $this->hasMany(Friendship::class, 'user_id', 'id');
     }
     public function group()
     {
