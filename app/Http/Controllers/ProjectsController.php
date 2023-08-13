@@ -87,4 +87,21 @@ class ProjectsController extends Controller
 
         return response()->json(['message' => 'Project disliked']);
     }
+    public function getProjectsByUser(Request $req)
+    {
+        $total = Project::all()->count();
+        $limit = $req->input('limit', $total);
+        $offset = $req->input('offset', 0);
+        $projects = Project::with(['users', 'languages'])
+            ->orderBy('created_at', 'desc')
+            ->limit($limit)
+            ->offset($offset)
+            ->get();
+        $total = $projects->count();
+
+        return response()->json([
+            'projects' => $projects,
+            'total' => $total
+        ]);
+    }
 }

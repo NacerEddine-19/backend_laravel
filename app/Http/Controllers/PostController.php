@@ -67,7 +67,14 @@ class PostController extends Controller
     }
     public function GetAllPostByUser(Request $req)
     {
-        $posts = Post::where('user_id', $req->id)->with('comments', 'user', 'likingUsers')->get();
+        $total = Post::all()->count();
+        $limit = $req->input('limit', $total);
+        $offset = $req->input('offset', 0);
+        $posts = Post::where('user_id', $req->id)
+            ->with('comments', 'user', 'likingUsers')
+            ->limit($limit)
+            ->offset($offset)
+            ->get();
         $total = $posts->count();
 
         return response()->json([

@@ -80,6 +80,7 @@ Route::prefix('reports')->group(function () {
 Route::prefix('projects')->group(function () {
     Route::get('/', [ProjectsController::class, 'index']);
     Route::get('/{project_id}', [ProjectsController::class, 'show']);
+    Route::get('/user/{id}', [ProjectsController::class, 'getProjectsByUser']);
     Route::post('/', [ProjectsController::class, 'store']);
     Route::patch('/{project_id}', [ProjectsController::class, 'update']);
     Route::delete('/{project_id}', [ProjectsController::class, 'destroy']);
